@@ -14,9 +14,10 @@
    ```bash
    git clone https://github.com/your-username/bookapi-tests.git
    cd RestAssuredRasu
-2.Run the Scenarios
+
+2. Run the Scenarios
    ```bash
    mvn clean test
 
-3.Reports are generated with a time named
+3. Reports are generated with a time named
      cd /extentreports
