@@ -1,11 +1,10 @@
 package com.bookstoreapi.testcases;
 
-import com.bookstoreapi.Data.UserData;
+import com.bookstoreapi.data.UserData;
 import com.bookstoreapi.apimethods.BookStoreAPI;
 import com.bookstoreapi.apimethods.SpecBuilder;
 import com.bookstoreapi.model.request.UserSignUp;
 import com.bookstoreapi.model.response.LoginForAccessTokenResponse;
-import org.hamcrest.Matchers;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

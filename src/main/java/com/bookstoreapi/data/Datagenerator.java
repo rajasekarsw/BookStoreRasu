@@ -1,4 +1,4 @@
-package com.bookstoreapi.Data;
+package com.bookstoreapi.data;
 
 import java.util.Random;
 

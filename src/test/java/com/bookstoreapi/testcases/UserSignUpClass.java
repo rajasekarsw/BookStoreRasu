@@ -1,6 +1,6 @@
 package com.bookstoreapi.testcases;
 
-import com.bookstoreapi.Data.UserData;
+import com.bookstoreapi.data.UserData;
 import com.bookstoreapi.apimethods.BookStoreAPI;
 import com.bookstoreapi.apimethods.SpecBuilder;
 import org.testng.annotations.Test;

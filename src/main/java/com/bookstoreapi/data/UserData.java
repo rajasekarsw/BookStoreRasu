@@ -1,4 +1,4 @@
-package com.bookstoreapi.Data;
+package com.bookstoreapi.data;
 
 import com.bookstoreapi.model.request.Book;
 import com.bookstoreapi.model.request.UserSignUp;

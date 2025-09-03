@@ -13,10 +13,10 @@ public class SpecBuilder {
     public static RequestSpecification baseSpec(){
 
         return new RequestSpecBuilder()
-                           .setBaseUri(ConfigReader.getConfigValue("url"))
-                           .log(LogDetail.ALL)
-                           .setContentType(ContentType.JSON)
-                           .build();
+                .setBaseUri(ConfigReader.getConfigValue("url"))
+                .log(LogDetail.ALL)
+                .setContentType(ContentType.JSON)
+                .build();
     }
 
     public static ResponseSpecification basicResponseSpec(){
