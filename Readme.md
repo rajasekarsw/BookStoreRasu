@@ -14,9 +14,8 @@
    ```bash
    git clone https://github.com/your-username/bookapi-tests.git
    cd RestAssuredRasu
-2. set env as QA in config file using, env=QA
-3. Run the Scenarios
+2.Run the Scenarios
    ```bash
    mvn clean test
-4.  Reports are generated with a time named
+3.Reports are generated with a time named
      cd /extentreports
