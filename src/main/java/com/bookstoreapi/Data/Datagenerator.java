@@ -1,0 +1,24 @@
+package com.bookstoreapi.Data;
+
+import java.util.Random;
+
+public class Datagenerator {
+
+
+    public static String randomEmail() {
+        return "user" + new Random().nextInt(9999) + "@example.com";
+    }
+
+    public static int randomID() {
+        return new Random().nextInt(99999);
+    }
+
+    public static String randomPwd() {
+        return "pwd" + new Random().nextInt(999);
+    }
+    public static int randomYear() {
+        int startYear = 1900;
+        int endYear = 2025;
+        return startYear +new Random().nextInt(endYear - startYear + 1);
+    }
+}
