@@ -4,9 +4,8 @@ import java.util.Random;
 
 public class Datagenerator {
 
-
     public static String randomEmail() {
-        return "user" + new Random().nextInt(9999) + "@example.com";
+        return "username" + new Random().nextInt(9999) + "@example.com";
     }
 
     public static int randomID() {
@@ -14,7 +13,7 @@ public class Datagenerator {
     }
 
     public static String randomPwd() {
-        return "pwd" + new Random().nextInt(999);
+        return "paswd" + new Random().nextInt(999);
     }
     public static int randomYear() {
         int startYear = 1900;

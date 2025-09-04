@@ -1,5 +1,4 @@
 package com.bookstoreapi.model.response;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record LoginForAccessTokenResponse(@JsonProperty("access_token")String accessToken,@JsonProperty("token_type")String tokenType) {
+public record LoginForAccessTokenResponse(String access_token,String token_type) {
 }

@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserSignUpClass {
 
-    @Test(priority = 2,description = "User sign up")
+    @Test(description = "User sign up")
     public void testUserSignUp(){
         new BookStoreAPI()
                 .userSignUp(UserData.signUp, Map.of())
@@ -20,7 +20,7 @@ public class UserSignUpClass {
                 .body("message",equalTo("User created successfully"));
     }
 
-    @Test(priority = 3,dependsOnMethods = "testUserSignUp",description = "User sign up with existing users")
+    @Test(dependsOnMethods = "testUserSignUp",description = "User sign up with existing users")
     public void testSignUpWithExistingUser(){
         new BookStoreAPI()
                 .userSignUp(UserData.signUp, Map.of())

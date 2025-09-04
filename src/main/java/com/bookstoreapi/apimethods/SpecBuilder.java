@@ -8,6 +8,8 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
+import java.util.Map;
+
 public class SpecBuilder {
 
     public static RequestSpecification baseSpec(){
@@ -24,6 +26,10 @@ public class SpecBuilder {
                 .expectContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
                 .build();
+    }
+
+    public static Map<String,String> getAuthHeader(String accessToken){
+       return Map.of("Authorization","Bearer "+accessToken);
     }
 
 }

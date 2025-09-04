@@ -7,29 +7,19 @@ import com.bookstoreapi.model.request.UserSignUp;
 import com.bookstoreapi.model.response.LoginForAccessTokenResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.util.*;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class LoginForAccessToken {
-    public static String accessToken;
+    private static String accessToken;
 
-    @Test(priority = 4, dependsOnMethods = {"testUserSignUp"},description = "Login with new user")
+    @Test(dependsOnMethods = {"testUserSignUp"},description = "Login with new user")
     public void testLoginUsingNewUser() {
-
-        accessToken = new BookStoreAPI()
-                .loginUsingNewUser(UserData.signUp, Map.of())
-                .then()
-                .spec(SpecBuilder.basicResponseSpec())
-                .statusCode(200)
-                .extract()
-                .as(LoginForAccessTokenResponse.class)
-                .accessToken();
+        accessToken=getAccessToken();
     }
 
-    @Test(priority = 5,dataProvider="invalidUsers",description = "Login with invalid credentials")
+    @Test(dataProvider="invalidUsers",description = "Login with invalid credentials")
     public void testLoginUsingInvalidCreds(UserSignUp login) {
         new BookStoreAPI()
                 .loginUsingNewUser(login, Map.of())
@@ -44,4 +34,16 @@ public class LoginForAccessToken {
     return UserData.listOfInvalidUsers.iterator();
     }
 
+   public static String getAccessToken(){
+        if(accessToken==null)
+              accessToken=new BookStoreAPI()
+                .loginUsingNewUser(UserData.signUp, Map.of())
+                .then()
+                .spec(SpecBuilder.basicResponseSpec())
+                .statusCode(200)
+                .extract()
+                .as(LoginForAccessTokenResponse.class)
+                .access_token();
+        return accessToken;
+    }
 }

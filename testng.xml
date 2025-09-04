@@ -9,12 +9,12 @@
             <class name="com.bookstoreapi.testcases.ServerRunningCheck"/>
             <class name="com.bookstoreapi.testcases.UserSignUpClass"/>
             <class name="com.bookstoreapi.testcases.LoginForAccessToken"/>
-            <class name="com.bookstoreapi.testcases.GetAllTheBooks"/>
             <class name="com.bookstoreapi.testcases.CreateBook"/>
+            <class name="com.bookstoreapi.testcases.GetAllTheBooks"/>
             <class name="com.bookstoreapi.testcases.UpdateBook"/>
-            <class name="com.bookstoreapi.testcases.DeleteBook"/>
             <class name="com.bookstoreapi.testcases.TokenTestcases"/>
             <class name="com.bookstoreapi.testcases.IncorrectJsonFormat"/>
+            <class name="com.bookstoreapi.testcases.DeleteBook"/>
         </classes>
     </test>
 </suite>

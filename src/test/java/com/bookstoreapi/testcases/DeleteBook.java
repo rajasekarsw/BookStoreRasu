@@ -2,6 +2,7 @@ package com.bookstoreapi.testcases;
 
 import com.bookstoreapi.apimethods.BookStoreAPI;
 import com.bookstoreapi.apimethods.SpecBuilder;
+import com.bookstoreapi.model.request.Book;
 import org.testng.annotations.Test;
 
 import java.util.Map;
@@ -10,35 +11,37 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class DeleteBook {
-
-    @Test(priority = 10,description = "Delete book by id")
+    private static int requiredBookId;
+    @Test(priority = 1,description = "Delete book by id")
     public void testDeleteBookById(){
+                requiredBookId=GetAllTheBooks.getRandomBookId();
                 new BookStoreAPI()
-                .deleteBookById(Map.of("Authorization","Bearer "+LoginForAccessToken.accessToken),Map.of("bookId",CreateBook.bookId))
+                .deleteBookById(SpecBuilder.getAuthHeader(LoginForAccessToken.getAccessToken()),Map.of("bookId",requiredBookId))
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(200)
                 .body("message",equalTo("Book deleted successfully"));
     }
 
-    @Test(priority = 11,description = "Delete book by id which is already deleted")
+    @Test(priority = 2,description = "Delete book by id which is already deleted")
     public void testDeleteBookWhichIsAlreadyDeleted(){
         new BookStoreAPI()
-                .deleteBookById(Map.of("Authorization","Bearer "+LoginForAccessToken.accessToken),Map.of("bookId",CreateBook.bookId))
+                .deleteBookById(SpecBuilder.getAuthHeader(LoginForAccessToken.getAccessToken()),Map.of("bookId",requiredBookId))
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(404)
                 .body("detail",equalTo("Book not found"));
     }
 
-    @Test(priority = 16,description = "Delete All books")
+    @Test(priority = 3,description = "Delete All books")
     public void testDeleteAllBooks(){
-        new BookStoreAPI().getAllTheBooks(Map.of(),Map.of("Authorization","Bearer "+LoginForAccessToken.accessToken),Map.of())
-                .jsonPath()
-                .getList("id",Integer.class)
-                .forEach( bookId-> new BookStoreAPI().deleteBookById(Map.of("Authorization","Bearer "+LoginForAccessToken.accessToken),Map.of("bookId",bookId))
+                GetAllTheBooks.getAllBooks()
+                        .stream()
+                        .map(Book::id)
+                        .forEach( bookId-> new BookStoreAPI().deleteBookById(SpecBuilder.getAuthHeader(LoginForAccessToken.getAccessToken()),Map.of("bookId",bookId))
                         .then()
                         .spec(SpecBuilder.basicResponseSpec())
-                        .statusCode(200));
+                        .statusCode(200)
+                        .body("message",equalTo("Book deleted successfully")));
     }
 }

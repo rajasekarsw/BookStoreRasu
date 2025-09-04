@@ -35,16 +35,5 @@ public class BookStoreAPI extends BaseAPI{
     public Response deleteBookById(Map<String,String> headers,Map<String,?> pathParams){
         return delete(APIEndpoints.DELETE_BOOK,headers,pathParams);
     }
-    public void deleteAllBooks(Map<String,String> headers){
-     Response response=getAllTheBooks(Map.of(),headers,Map.of());
-     response.jsonPath()
-             .getList("id",Integer.class)
-             .forEach( bookId->{
-                deleteBookById(headers,Map.of("bookId",bookId))
-                        .then()
-                        .log().all()
-                        .statusCode(200);
-             });
-    }
 
 }

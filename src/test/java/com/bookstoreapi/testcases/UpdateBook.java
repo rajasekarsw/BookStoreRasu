@@ -9,16 +9,17 @@ import java.util.Map;
 import static org.hamcrest.Matchers.equalTo;
 
 public class UpdateBook {
-
-    @Test(priority = 9,description = "Update book by id")
+    @Test(description = "Update book by id")
     public void testUpdateBook(){
+        int requiredBookId = GetAllTheBooks.getRandomBookId();
+        Book updatedBook=UserData.getUpdatedBook(requiredBookId);
         new BookStoreAPI()
-                .updateBookById(UserData.updateBook, Map.of("Authorization","Bearer "+LoginForAccessToken.accessToken),Map.of("bookId",CreateBook.bookId))
+                .updateBookById(updatedBook, SpecBuilder.getAuthHeader(LoginForAccessToken.getAccessToken()),Map.of("bookId", requiredBookId))
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(200)
-                .body("id",equalTo(UserData.updateBook.id()))
-                .body("name",equalTo(UserData.updateBook.name()))
+                .body("id",equalTo(updatedBook.id()))
+                .body("name",equalTo(updatedBook.name()))
                 .extract()
                 .as(Book.class);
     }

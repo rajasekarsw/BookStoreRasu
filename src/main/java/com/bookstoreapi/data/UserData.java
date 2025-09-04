@@ -8,11 +8,12 @@ import java.util.List;
 public class UserData {
 public static UserSignUp signUp=new UserSignUp(Datagenerator.randomID(),Datagenerator.randomEmail(),Datagenerator.randomPwd());
 public static Book book=new Book(Datagenerator.randomID(),"Agni"+Datagenerator.randomID(),"Abdul kalam",Datagenerator.randomYear(),"life about kalam");
-public static Book updateBook=new Book(book.id(),"Updated Agni"+Datagenerator.randomID(),"update author Abdul kalam",Datagenerator.randomYear(),"life about kalam");
-
+public static Book getUpdatedBook(int requiredBookId) {
+        return  new Book(requiredBookId,"Updated Agni"+Datagenerator.randomID(),"update author Abdul kalam",Datagenerator.randomYear(),"life about kalam");
+    }
 public static List<UserSignUp> listOfInvalidUsers=
                     List.of(
-                    // invalid id not considered as invalid id, so ignored
+                    // invalid id not considered as invalid id by server, so ignored
                     // invalid email
                     new UserSignUp(UserData.signUp.id(), null, UserData.signUp.password()),
                     new UserSignUp(UserData.signUp.id(), "", UserData.signUp.password()),
@@ -40,5 +41,4 @@ public static String incorrectPayloadFormat= """
             "book_summary": "life about kalam",
         }
         """;
-
 }
