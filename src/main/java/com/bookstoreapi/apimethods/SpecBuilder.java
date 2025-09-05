@@ -12,24 +12,25 @@ import java.util.Map;
 
 public class SpecBuilder {
 
-    public static RequestSpecification baseSpec(){
-
-        return new RequestSpecBuilder()
-                .setBaseUri(ConfigReader.getConfigValue("url"))
+    private static RequestSpecification requestSpecBasic;
+    private static ResponseSpecification responseSpecBasic;
+    public static RequestSpecification baseRequestSpec(){
+      if(requestSpecBasic==null)
+        requestSpecBasic= new RequestSpecBuilder()
+                .setBaseUri(ConfigReader.getConfigValue(ConfigReader.getConfigValue("env").toLowerCase()+".url"))
                 .log(LogDetail.ALL)
                 .setContentType(ContentType.JSON)
                 .build();
+      return requestSpecBasic;
     }
 
     public static ResponseSpecification basicResponseSpec(){
-        return new ResponseSpecBuilder()
+        if(responseSpecBasic==null)
+            responseSpecBasic =new ResponseSpecBuilder()
                 .expectContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
                 .build();
-    }
-
-    public static Map<String,String> getAuthHeader(String accessToken){
-       return Map.of("Authorization","Bearer "+accessToken);
+        return responseSpecBasic;
     }
 
 }

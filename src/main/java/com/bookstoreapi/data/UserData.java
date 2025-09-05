@@ -2,8 +2,10 @@ package com.bookstoreapi.data;
 
 import com.bookstoreapi.model.request.Book;
 import com.bookstoreapi.model.request.UserSignUp;
+import com.bookstoreapi.model.response.InvalidTokenResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserData {
 public static UserSignUp signUp=new UserSignUp(Datagenerator.randomID(),Datagenerator.randomEmail(),Datagenerator.randomPwd());
@@ -11,7 +13,7 @@ public static Book book=new Book(Datagenerator.randomID(),"Agni"+Datagenerator.r
 public static Book getUpdatedBook(int requiredBookId) {
         return  new Book(requiredBookId,"Updated Agni"+Datagenerator.randomID(),"update author Abdul kalam",Datagenerator.randomYear(),"life about kalam");
     }
-public static List<UserSignUp> listOfInvalidUsers=
+public static List<UserSignUp> invalidUsers=
                     List.of(
                     // invalid id not considered as invalid id by server, so ignored
                     // invalid email
@@ -31,6 +33,14 @@ public static List<UserSignUp> listOfInvalidUsers=
             );
 
 public static String expiredToken="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMzQ2MkBleGFtcGxlLmNvbSIsImV4cCI6MTc1Njg2NjM2N30.Jx6V9E-UpTfEeFjFvEd7kxSsRHsmqYZuk3PuEFlhLcs";
+
+public static List<InvalidTokenResponse> getInvalidTokens(String tokenType) {
+   return List.of(
+           new InvalidTokenResponse(Map.of("Authorization", tokenType+ "invalidtoken"), 403,"Invalid token or expired token"),
+           new InvalidTokenResponse(Map.of("Authorization", tokenType+ expiredToken), 403,"Invalid token or expired token"),
+           new InvalidTokenResponse(Map.of(), 403,"Not authenticated")
+    );
+}
 
 public static String incorrectPayloadFormat= """
         {

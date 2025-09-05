@@ -38,6 +38,7 @@ public class ListenerClass implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
         extentTest=extentReports.createTest(result.getMethod().getDescription());
+        extentTest.info(result.getMethod().getMethodName()+" started");
     }
 
     @Override

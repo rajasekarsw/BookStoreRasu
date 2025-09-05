@@ -6,6 +6,7 @@ import com.bookstoreapi.apimethods.SpecBuilder;
 import org.testng.annotations.Test;
 import java.util.Map;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
 public class UserSignUpClass {
@@ -17,6 +18,7 @@ public class UserSignUpClass {
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("schemas/Message.json"))
                 .body("message",equalTo("User created successfully"));
     }
 
@@ -27,6 +29,7 @@ public class UserSignUpClass {
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(400)
+                .body(matchesJsonSchemaInClasspath("schemas/Detail.json"))
                 .body("detail",equalTo("Email already registered"));
     }
 }

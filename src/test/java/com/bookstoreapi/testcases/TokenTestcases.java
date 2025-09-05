@@ -3,37 +3,33 @@ package com.bookstoreapi.testcases;
 import com.bookstoreapi.data.UserData;
 import com.bookstoreapi.apimethods.BookStoreAPI;
 import com.bookstoreapi.apimethods.SpecBuilder;
+import com.bookstoreapi.model.response.InvalidTokenResponse;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import java.util.Iterator;
 import java.util.Map;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TokenTestcases {
-    @Test(description = "Check book list with expired token")
-    public void testExpireToken(){
+
+    @Test(dataProvider ="provideInvalidToken",description = "Invalid token test")
+    public void invalidTokens(InvalidTokenResponse tokenResponse){
         new BookStoreAPI()
-                .getAllTheBooks(Map.of(),SpecBuilder.getAuthHeader( UserData.expiredToken),Map.of())
+                .getAllTheBooks(Map.of(),tokenResponse.token(),Map.of())
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
-                .statusCode(403)
-                .body("detail",equalTo("Invalid token or expired token"));
-    }
-    @Test(description = "Check book list with invalid token")
-    public void invalidTokenCheckBookList(){
-        new BookStoreAPI()
-                .getAllTheBooks(Map.of(),SpecBuilder.getAuthHeader("invalidToken"+LoginForAccessToken.getAccessToken()),Map.of())
-                .then()
-                .spec(SpecBuilder.basicResponseSpec())
-                .statusCode(403)
-                .body("detail",equalTo("Invalid token or expired token"));
+                .statusCode(tokenResponse.responseCode())
+                .body(matchesJsonSchemaInClasspath("schemas/Detail.json"))
+                .body("detail",equalTo(tokenResponse.responseMessage()));
     }
 
-    @Test(description = "Check book list with no token")
-    public void noTokenCheckBookList(){
-        new BookStoreAPI()
-                .getAllTheBooks(Map.of(),Map.of(),Map.of())
-                .then()
-                .spec(SpecBuilder.basicResponseSpec())
-                .statusCode(403)
-                .body("detail",equalTo("Not authenticated"));
+    @DataProvider
+    public Iterator<InvalidTokenResponse> provideInvalidToken(){
+      return UserData
+              .getInvalidTokens(LoginForAccessToken.getAccessToken()
+              .getValue().split(" ")[0]+" ").iterator();
     }
+
 }

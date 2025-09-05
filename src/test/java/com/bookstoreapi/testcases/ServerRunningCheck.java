@@ -4,6 +4,8 @@ import com.bookstoreapi.apimethods.BookStoreAPI;
 import com.bookstoreapi.apimethods.SpecBuilder;
 import org.testng.annotations.Test;
 import java.util.Map;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ServerRunningCheck {
@@ -14,6 +16,7 @@ public class ServerRunningCheck {
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("schemas/GetHealth.json"))
                 .body("status",equalTo("up"));
     }
 }
