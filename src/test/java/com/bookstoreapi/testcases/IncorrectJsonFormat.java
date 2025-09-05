@@ -12,7 +12,7 @@ public class IncorrectJsonFormat {
     @Test(description = "Create book with invalid JSON payload")
     public void testIncorrectJsonPayload(){
                new BookStoreAPI()
-                .createBook(UserData.incorrectPayloadFormat, Map.ofEntries(getAccessToken()))
+                .createBook(UserData.incorrectPayload, Map.ofEntries(getAccessToken()))
                 .then()
                 .spec(SpecBuilder.basicResponseSpec())
                 .statusCode(422)

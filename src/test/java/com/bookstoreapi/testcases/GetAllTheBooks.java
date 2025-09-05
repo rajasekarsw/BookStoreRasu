@@ -29,7 +29,7 @@ public class GetAllTheBooks {
     }
 
     public static int getRandomBookId(){
-       return GetAllTheBooks.getAllBooks().stream().map(Book::id).findAny().orElseThrow();
+       return getAllBooks().stream().map(Book::id).findAny().orElseThrow();
     }
 
 

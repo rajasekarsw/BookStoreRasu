@@ -42,7 +42,7 @@ public static List<InvalidTokenResponse> getInvalidTokens(String tokenType) {
     );
 }
 
-public static String incorrectPayloadFormat= """
+public static String incorrectPayload= """
         {
             "name": "Agni79651",
             "published_year": 1956,
